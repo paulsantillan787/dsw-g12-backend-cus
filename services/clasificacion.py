@@ -95,12 +95,15 @@ def delete(id_clasificacion):
         
         return make_response(jsonify(data), 404)
     
+    clasificacion_borrada = clasificacion_schema.dump(clasificacion)
+
     db.session.delete(clasificacion)
-    
+    db.session.commit()
+
     data = {
         'message': 'Rango de calificación eliminado con éxito',
         'status': 200,
-        'data': clasificacion_schema.dump(clasificacion)
+        'data': clasificacion_borrada
     }
     
     return make_response(jsonify(data), 200)

@@ -91,12 +91,15 @@ def delete(id_respuesta):
         
         return make_response(jsonify(data), 404)
     
+    rpta_borrada =  respuesta_schema.dump(respuesta)
     db.session.delete(respuesta)
+    
+    db.session.commit()
     
     data = {
         'message': 'Respuesta eliminada con éxito',
         'status': 200,
-        'data': respuesta_schema.dump(respuesta)
+        'data': rpta_borrada
     }
     
     return make_response(jsonify(data), 200)

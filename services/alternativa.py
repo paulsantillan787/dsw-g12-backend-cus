@@ -84,11 +84,13 @@ def delete(id):
     alternativa = Alternativa.query.get(id)
     
     if alternativa:
+        alternativa_borrada = alternativa_schema.dump(alternativa)
         db.session.delete(alternativa)
         db.session.commit()
         
         data = {
             'message': 'Alternativa eliminada con éxito',
+            'alternativa': alternativa_borrada,
             'status': 200
         }
         
@@ -96,8 +98,7 @@ def delete(id):
     
     data = {
         'message': 'Alternativa no encontrada',
-        'status': 404,
-        'alternativa': alternativa_schema.dump(alternativa)
+        'status': 404
     }
     
     return make_response(jsonify(data), 404)

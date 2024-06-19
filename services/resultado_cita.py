@@ -90,13 +90,15 @@ def delete(id_resultado):
         
         return make_response(jsonify(data), 404)
     
+    resultado_borrado = resultado_cita_schema.dump(resultado)
+
     db.session.delete(resultado)
     db.session.commit()
     
     data = {
         'message': 'Resultado eliminado con éxito',
         'status': 200,
-        'data': resultado_cita_schema.dump(resultado)
+        'data': resultado_borrado
     }
     
     return make_response(jsonify(data), 200)

@@ -78,13 +78,14 @@ def delete(id_paciente):
         }
         return make_response(jsonify(data), 404)
     
+    paciente_borrado = paciente_schema.dump(paciente)
     db.session.delete(paciente)
     db.session.commit()
     
     data = {
         'message': 'Estudiante eliminado con éxito',
         'status': 200,
-        'estudiante': paciente_schema.dump(paciente)
+        'estudiante': paciente_borrado
     }
     
     return make_response(jsonify(data), 200)

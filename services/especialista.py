@@ -82,13 +82,15 @@ def delete(id_especialista):
         }
         return make_response(jsonify(data), 404)
     
+    especialista_borrado =  especialista_schema.dump(especialista)
+
     db.session.delete(especialista)
     db.session.commit()
     
     data = {
         'message': 'Especialista eliminado con exito',
         'status': 200,
-        'especialista': especialista_schema.dump(especialista)
+        'especialista':especialista_borrado
     }
     
     return make_response(jsonify(data), 200)

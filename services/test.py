@@ -95,13 +95,15 @@ def delete(id_test):
         
         return make_response(jsonify(data), 404)
     
+    test_borrado = test_schema.dump(test)
+
     db.session.delete(test)
     db.session.commit()
     
     data = {
         'message': 'Test eliminado con éxito',
         'status': 200,
-        'data': test_schema.dump(test)
+        'data': test_borrado
     }
     
     return make_response(jsonify(data), 200)

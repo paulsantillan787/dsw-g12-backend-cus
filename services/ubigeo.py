@@ -99,13 +99,14 @@ def delete(id_ubigeo):
         
         return make_response(jsonify(data),400)
     
+    ubigeo_borrado = ubigeo_schema.dump(ubigeo)
     db.session.delete(ubigeo)
     db.session.commit()
     
     data = {
         'message': 'Ubigeo eliminado con éxito',
         'status': 200,
-        'ubigeo': ubigeo_schema.dump(ubigeo)
+        'ubigeo': ubigeo_borrado
     }
     
     return make_response(jsonify(data),200)

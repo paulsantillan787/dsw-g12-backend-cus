@@ -144,13 +144,14 @@ def delete(id_usuario):
         }
         return make_response(jsonify(data), 404)
     
+    usuario_borrado = usuario_schema.dump(usuario)
     db.session.delete(usuario)
     db.session.commit()
     
     data = {
         'message': 'Usuario eliminada con éxito',
         'status': 200,
-        'data': usuario_schema.dump(usuario)
+        'data': usuario_borrado
     }
     
     return make_response(jsonify(data), 200)
