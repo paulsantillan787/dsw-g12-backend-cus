@@ -7,9 +7,11 @@ class PersonaSchema(ma.Schema):
         model = Persona
         fields = (
             'documento',
+            'tipo_documento',
             'id_ubigeo',
-            'nombres',
-            'apellidos',
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
             'fecha_nacimiento',
             'sexo',
             'telefono',
