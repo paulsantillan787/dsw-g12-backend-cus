@@ -15,8 +15,6 @@ class PersonaSchema(ma.Schema):
             'fecha_nacimiento',
             'sexo',
             'telefono',
-            'correo',
-            'direccion',
             'ubigeo'
         )
         

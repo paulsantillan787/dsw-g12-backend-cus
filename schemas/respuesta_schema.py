@@ -18,6 +18,7 @@ class RespuestaSchema(ma.Schema):
     )
     
   test = ma.Nested(TestSchema)
+  pregunta = ma.Nested(PreguntaSchema)
   alternativa = ma.Nested(AlternativaSchema)
 
 respuesta_schema = RespuestaSchema()
