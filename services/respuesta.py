@@ -78,10 +78,10 @@ def update(id_respuesta):
     
     return make_response(jsonify(data), 200)
     
-@respuestas.route('/respuestas/delete/<int:id_alternativa>', methods=['DELETE'])
+@respuestas.route('/respuestas/delete/<int:id_respuesta>', methods=['DELETE'])
 @jwt_required()
-def delete(id_alternativa):
-    respuesta = Respuesta.query.get(id_alternativa)
+def delete(id_respuesta):
+    respuesta = Respuesta.query.get(id_respuesta)
     
     if respuesta == None:
         data = {
