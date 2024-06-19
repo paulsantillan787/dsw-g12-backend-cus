@@ -1,7 +1,7 @@
 # Entregable SISVITA3 - grupo 12
 
 ## Descripción:
-Tratamos el desarrollo del backend de los casos de uso proporcionados en el diagrama para el avance del proyecto de curso *DESARROLLO DE SISTEMAS WEB*.
+Clonacion temporal del repo original: https://github.com/JoArDiTo/dsw-g12-backend-cus.git
 
 ## Detalles:
 - Uso del framework Flask, extendido con Marshmallow
