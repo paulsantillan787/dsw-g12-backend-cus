@@ -2,6 +2,8 @@
 
 ## Descripción:
 Clonacion temporal del repo original (Avance 5): https://github.com/JoArDiTo/dsw-g12-backend-cus.git
+El motivo de esta clonación es porque hubo un inconveniente con el usuario que tiene este repositorio.
+Una vez solucionado, se volverá al repositorio original.
 
 ## Detalles:
 - Uso del framework Flask, extendido con Marshmallow
