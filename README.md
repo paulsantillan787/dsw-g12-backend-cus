@@ -1,7 +1,7 @@
-# Entregable SISVITA3 - grupo 12
+# Entregable SISVITA - grupo 12
 
 ## Descripción:
-Clonacion temporal del repo original: https://github.com/JoArDiTo/dsw-g12-backend-cus.git
+Clonacion temporal del repo original (Avance 5): https://github.com/JoArDiTo/dsw-g12-backend-cus.git
 
 ## Detalles:
 - Uso del framework Flask, extendido con Marshmallow
