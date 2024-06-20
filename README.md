@@ -61,5 +61,10 @@ SERVER = postgresql
 ```bash
 python app.py
 ```
-
+Contact
+For any questions or assistance, please contact the following people:
+- https://github.com/yabl1107
+- https://github.com/JoArDiTo
+- https://github.com/paulsantillan787
+- https://github.com/MiguelVaDu
 
