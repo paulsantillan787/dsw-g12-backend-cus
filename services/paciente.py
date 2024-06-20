@@ -21,6 +21,26 @@ def get_pacientes():
     
     return make_response(jsonify(data),200)    
 
+@pacientes.route('/pacientes/get/<int:id_usuario>', methods=['GET'])
+def get_paciente(id_usuario):
+    paciente = Paciente.query.filter_by(id_usuario=id_usuario).first()
+    
+    if paciente==None:
+        data = {
+            'message': 'Estudiante no encontrado',
+            'status': 404
+        }
+        
+        return make_response(jsonify(data),404)
+    
+    data = {
+        'message': 'Estudiante encontrado con éxito',
+        'status': 200,
+        'paciente': paciente_schema.dump(paciente)
+    }
+    
+    return make_response(jsonify(data),200)
+
 @pacientes.route('/pacientes/insert', methods=['POST'])
 # NO SE REQUIERE JWT PARA CREAR PACIENTE
 def insert():

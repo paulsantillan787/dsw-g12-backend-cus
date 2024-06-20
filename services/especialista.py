@@ -21,6 +21,26 @@ def get_especialistas():
     
     return make_response(jsonify(data), 200)
 
+@especialistas.route('/especialistas/get/<int:id_usuario>', methods=['GET'])
+def get_especialista(id_usuario):
+    especialista = Especialista.query.filter_by(id_usuario=id_usuario).first()
+    
+    if especialista==None:
+        data = {
+            'message': 'Especialista no encontrado',
+            'status': 404
+        }
+        
+        return make_response(jsonify(data), 404)
+    
+    data = {
+        'message': 'Especialista encontrado con éxito',
+        'status': 200,
+        'especialista': especialista_schema.dump(especialista)
+    }
+    
+    return make_response(jsonify(data), 200)
+
 @especialistas.route('/especialistas/insert', methods=['POST'])
 # NO SE REQUIERE JWT PARA CREAR ESPECIALISTA
 def insert():

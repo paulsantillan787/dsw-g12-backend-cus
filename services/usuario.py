@@ -73,6 +73,27 @@ def get_usuarios():
 
     return make_response(jsonify(data),200)
 
+@usuarios.route('/usuarios/get/<string:document>', methods=['GET'])
+def get_usuario(document):
+    usuario = Usuario.query.filter_by(documento=document).first()
+    
+    if usuario==None:
+        data = {
+            'message': 'Usuario no encontrado',
+            'status': 404
+        }
+        
+        return make_response(jsonify(data), 404)
+    
+    data = {
+        'message': 'Usuario encontrado con éxito',
+        'status': 200,
+        'usuario': usuario_schema.dump(usuario)
+    }
+    
+    return make_response(jsonify(data), 200)
+
+
 @usuarios.route('/usuarios/insert', methods=['POST'])
 #NO SE DEBE REQUERIR JWT PARA CREAR UN USUARIO
 def insert():
