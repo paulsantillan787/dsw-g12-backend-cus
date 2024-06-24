@@ -48,18 +48,17 @@ def insert():
     data = {
         'message': 'Test creado con éxito',
         'status': 201,
-        'data': test_schema.dump(test)
+        'test': test_schema.dump(test)
     }
     
     return make_response(jsonify(data), 201) 
 
-# LA FUNCIÓN UPDATE NO SERÁ IMPLEMENTADA EN EL FRONTEND
 @tests.route('/tests/update/<int:id_test>', methods=['PUT'])
 @jwt_required()
 def update(id_test):
     test = Test.query.get(id_test)
     
-    if test == None:
+    if not test:
         data = {
             'message': 'Test no encontrado',
             'status': 404
@@ -82,7 +81,7 @@ def update(id_test):
     data = {
         'message': 'Test actualizado con éxito',
         'status': 200,
-        'data': test_schema.dump(test)
+        'test': test_schema.dump(test)
     }
     
     return make_response(jsonify(data), 200)
@@ -92,23 +91,20 @@ def update(id_test):
 def delete(id_test):
     test = Test.query.get(id_test)
     
-    if test == None:
+    if not test:
         data = {
             'message': 'Test no encontrado',
             'status': 404
         }
         
         return make_response(jsonify(data), 404)
-    
-    test_borrado = test_schema.dump(test)
 
     db.session.delete(test)
     db.session.commit()
     
     data = {
         'message': 'Test eliminado con éxito',
-        'status': 200,
-        'data': test_borrado
+        'status': 200
     }
     
     return make_response(jsonify(data), 200)

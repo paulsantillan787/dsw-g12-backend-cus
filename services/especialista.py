@@ -42,8 +42,7 @@ def get_especialista(id_usuario):
     return make_response(jsonify(data), 200)
 
 @especialistas.route('/especialistas/insert', methods=['POST'])
-# NO SE REQUIERE JWT PARA CREAR ESPECIALISTA
-def insert():
+def insert(): #NO SE REQUIERE JWT PARA CREAR ESPECIALISTA
     data = request.get_json()
     
     id_usuario = data.get('id_usuario')
@@ -62,13 +61,12 @@ def insert():
     
     return make_response(jsonify(data), 201)
 
-#LA FUNCIÓN UPDATE NO SERÁ IMPLEMENTADA EN EL FRONTEND
 @especialistas.route('/especialistas/update/<int:id_especialista>', methods=['PUT'])
 @jwt_required()
 def update(id_especialista):
     especialista = Especialista.query.get(id_especialista)
     
-    if especialista==None:
+    if not especialista:
         data = {
             'message': 'Especialista no encontrado',
             'status': 400
@@ -101,8 +99,6 @@ def delete(id_especialista):
             'status': 404
         }
         return make_response(jsonify(data), 404)
-    
-    especialista_borrado =  especialista_schema.dump(especialista)
 
     db.session.delete(especialista)
     db.session.commit()
@@ -110,7 +106,6 @@ def delete(id_especialista):
     data = {
         'message': 'Especialista eliminado con exito',
         'status': 200,
-        'especialista':especialista_borrado
     }
     
     return make_response(jsonify(data), 200)

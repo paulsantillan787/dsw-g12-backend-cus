@@ -45,18 +45,17 @@ def insert():
     data = {
         'message': 'Respuesta creada con éxito',
         'status': 201,
-        'data': respuesta_schema.dump(respuesta)
+        'respuesta': respuesta_schema.dump(respuesta)
     }
     
     return make_response(jsonify(data), 201)
 
-# LA FUNCIÓN UPDATE NO SERÁ IMPLEMENTADA EN EL FRONTEND
 @respuestas.route('/respuestas/update/<int:id_respuesta>', methods=['PUT'])
 @jwt_required()
 def update(id_respuesta):
     respuesta = Respuesta.query.get(id_respuesta)
     
-    if respuesta == None:
+    if not respuesta:
         data = {
             'message': 'No se encontró la respuesta',
             'status': 404
@@ -73,7 +72,7 @@ def update(id_respuesta):
     data = {
         'message': 'Respuesta actualizada con éxito',
         'status': 200,
-        'data': respuesta_schema.dump(respuesta)
+        'respuesta': respuesta_schema.dump(respuesta)
     }
     
     return make_response(jsonify(data), 200)
@@ -83,23 +82,21 @@ def update(id_respuesta):
 def delete(id_respuesta):
     respuesta = Respuesta.query.get(id_respuesta)
     
-    if respuesta == None:
+    if not respuesta:
         data = {
             'message': 'Respuesta no encontrada',
             'status': 404
         }
         
         return make_response(jsonify(data), 404)
-    
-    rpta_borrada =  respuesta_schema.dump(respuesta)
+
     db.session.delete(respuesta)
     
     db.session.commit()
     
     data = {
         'message': 'Respuesta eliminada con éxito',
-        'status': 200,
-        'data': rpta_borrada
+        'status': 200
     }
     
     return make_response(jsonify(data), 200)

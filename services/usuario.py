@@ -129,7 +129,7 @@ def insert():
 def update(id_usuario):    
     usuario = Usuario.query.get(id_usuario)
     
-    if usuario==None:
+    if not usuario:
         data = {
             'message': 'Usuario no encontrada',
             'status': 400
@@ -147,7 +147,7 @@ def update(id_usuario):
     data = {
         'message': 'Usuario actualizada con éxito',
         'status': 200,
-        'data': usuario_schema.dump(usuario)
+        'usuario': usuario_schema.dump(usuario)
     }
     
     return make_response(jsonify(data), 200)
@@ -165,14 +165,12 @@ def delete(id_usuario):
         }
         return make_response(jsonify(data), 404)
     
-    usuario_borrado = usuario_schema.dump(usuario)
     db.session.delete(usuario)
     db.session.commit()
     
     data = {
         'message': 'Usuario eliminada con éxito',
-        'status': 200,
-        'data': usuario_borrado
+        'status': 200
     }
     
     return make_response(jsonify(data), 200)

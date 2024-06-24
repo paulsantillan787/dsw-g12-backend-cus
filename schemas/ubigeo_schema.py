@@ -6,6 +6,8 @@ class UbigeoSchema(ma.Schema):
     departamento = fields.String()
     provincia = fields.String()
     distrito = fields.String()
+    latitud = fields.Float()
+    longitud = fields.Float()
     
 ubigeo_schema = UbigeoSchema()
 ubigeos_schema = UbigeoSchema(many=True)

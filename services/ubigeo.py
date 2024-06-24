@@ -30,8 +30,10 @@ def insert():
     departamento = data.get('departamento')
     provincia = data.get('provincia')
     distrito = data.get('distrito')
+    latitud = data.get('latitud')
+    longitud = data.get('longitud')
     
-    if id_ubigeo==None or departamento==None or provincia==None or distrito==None:
+    if id_ubigeo==None or departamento==None or provincia==None or distrito==None or latitud==None or longitud==None:
         data = {
             'message': 'Faltan datos',
             'status': 400
@@ -39,7 +41,7 @@ def insert():
         
         return make_response(jsonify(data),400)
     
-    ubigeo = Ubigeo(id_ubigeo, departamento, provincia, distrito)
+    ubigeo = Ubigeo(id_ubigeo, departamento, provincia, distrito, latitud, longitud)
     
     db.session.add(ubigeo)
     db.session.commit()
@@ -57,7 +59,7 @@ def insert():
 def update(id_ubigeo):    
     ubigeo = Ubigeo.query.get(id_ubigeo)
     
-    if ubigeo==None:
+    if not ubigeo:
         data = {
             'message': 'Ubigeo no encontrado',
             'status': 400
@@ -68,6 +70,8 @@ def update(id_ubigeo):
     ubigeo.departamento = request.json.get('departamento')
     ubigeo.provincia = request.json.get('provincia')
     ubigeo.distrito = request.json.get('distrito')
+    ubigeo.latitud = request.json.get('latitud')
+    ubigeo.longitud = request.json.get('longitud')
     
     db.session.commit()
     
@@ -92,14 +96,12 @@ def delete(id_ubigeo):
         
         return make_response(jsonify(data),400)
     
-    ubigeo_borrado = ubigeo_schema.dump(ubigeo)
     db.session.delete(ubigeo)
     db.session.commit()
     
     data = {
         'message': 'Ubigeo eliminado con éxito',
-        'status': 200,
-        'ubigeo': ubigeo_borrado
+        'status': 200
     }
     
     return make_response(jsonify(data),200)

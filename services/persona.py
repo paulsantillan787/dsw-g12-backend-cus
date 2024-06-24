@@ -88,7 +88,7 @@ def insert_persona():
 def update_persona(documento):    
     persona = Persona.query.get(documento)
     
-    if persona==None:
+    if not persona:
         data = {
             'message': 'Persona no encontrada',
             'status': 400

@@ -42,8 +42,7 @@ def get_paciente(id_usuario):
     return make_response(jsonify(data),200)
 
 @pacientes.route('/pacientes/insert', methods=['POST'])
-# NO SE REQUIERE JWT PARA CREAR PACIENTE
-def insert():
+def insert(): #NO SE REQUIERE JWT PARA CREAR PACIENTE
     data = request.get_json()
     
     id_usuario = data.get('id_usuario')
@@ -55,18 +54,17 @@ def insert():
     data = {
         'message': 'Estudiante creado con éxito',
         'status': 201,
-        'estudiante': paciente_schema.dump(paciente)
+        'paciente': paciente_schema.dump(paciente)
     }
     
     return make_response(jsonify(data),201)
 
-#LA FUNCIÓN UPDATE NO SERÁ IMPLEMENTADA EN EL FRONTEND
 @pacientes.route('/pacientes/update/<int:id_paciente>', methods=['PUT'])
 @jwt_required()
 def update(id_paciente):
     paciente = Paciente.query.get(id_paciente)
     
-    if paciente==None:
+    if not paciente:
         data = {
             'message': 'Estudiante no encontrado',
             'status': 400
@@ -81,7 +79,7 @@ def update(id_paciente):
     data = {
         'message': 'Estudiante actualizado con éxito',
         'status': 200,
-        'estudiante': paciente_schema.dump(paciente)
+        'paciente': paciente_schema.dump(paciente)
     }
     
     return make_response(jsonify(data),200)
@@ -98,14 +96,12 @@ def delete(id_paciente):
         }
         return make_response(jsonify(data), 404)
     
-    paciente_borrado = paciente_schema.dump(paciente)
     db.session.delete(paciente)
     db.session.commit()
     
     data = {
         'message': 'Estudiante eliminado con éxito',
         'status': 200,
-        'estudiante': paciente_borrado
     }
     
     return make_response(jsonify(data), 200)
